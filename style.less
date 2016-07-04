@@ -1,0 +1,53 @@
+//Uncomment as needed
+
+@import "styles/main.less";
+
+// .header{ margin-top: 25px;
+//   nav { .container; padding-left: 0; margin-bottom: 0px;
+//     a { color: #3d6c97; font-size: 18px; line-height:28px; font-weight: bold; }
+//     li{
+//       &:hover > a { background-color: #f1f1f1; }
+//       &.menu-item-has-children { 
+//         & > a:after { font-family: 'FontAwesome'; content:"\f107"; margin-left: 10px; }
+//        }
+//        &.current-menu-item, &.current_page_parent { background-color: #f1f1f1;  
+//         a { color: white; }
+//       }
+//     }
+//   }
+// }
+
+//Helpers
+.txt-center          { text-align: center; }
+.txt-italic          { font-style: italic; }
+.uppercase           { text-transform: uppercase; }
+//.old                 { font-family: 'Old Standard TT', sans-serif; }
+.suranna             { font-family: 'Suranna', sans-serif; }
+.fs( @size: 20px )   { font-size: @size; }
+
+//Full Width Images
+.bg-image            { background-repeat: no-repeat; background-size: cover; background-position: center center; }
+
+//Image Overlay
+.basic-overlay( @color ) { background-color: @color; .opacity(0.6); position: absolute; top: 0px; left: 0px; z-index: 2; width: 100%; height: 100%;} 
+
+//Horizontal & Vertical center: (Reminder: Parent element needs to be position: relative; )
+.center-hv          { position: absolute; top: 50%; left: 50%; .translate(-50%; -50%); }
+
+.home {
+  header { height: 50px; position: absolute; z-index: 3; width: 100%;
+    .navbar-default { border-color: transparent; }
+    .navbar { background-color: transparent; border-color: transparent; }
+    .navbar-nav { width: 50%; margin: 0 auto; background-color: transparent;
+      @media( max-width: @screen-xs-max ){ width: 100%; background-color: #312b2b }
+        a { .txt-center; color: white; font-weight: bold; }
+    }
+  }
+}
+.bg-wrapper{ .bg-image; height: 100vh; position: relative;
+  .text { .center-hv; z-index: 3; color: #FFF; .suranna; .fs(30px); .txt-center; 
+    p { text-shadow: 2px 2px 0 rgba(0,0,0,0.3); }
+    img { display: inline-block; max-height: 100vh; }
+  }
+  .overlay { .basic-overlay(#000); }
+}
