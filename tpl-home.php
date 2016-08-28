@@ -1,7 +1,9 @@
 <?php 
 /* Template Name: Home Template */
-get_header(); the_post(); $jj = get_fields(); ?>
-<div class="bg-wrapper" style="background-image: url(<?php echo $jj['background_image']['url'] ?>);">
+get_header(); the_post(); $jj = get_fields(); 
+include('instagram.php');
+?>
+<div class="bg-wrapper" style="background-image: url(<?php echo $jj['background_image']['sizes']['home_image'] ?>);">
   <div class="container text">
       <img src="<?php echo $jj['logo']['sizes']['logo_resize'] ?>" class="img-responsive" alt="<?php bloginfo('name') ?>">
   </div>
@@ -17,7 +19,7 @@ get_header(); the_post(); $jj = get_fields(); ?>
     <div>
       <?php echo $jj['short_details']; ?>
     </div>
-    <a href="<?php get_permalink(61); ?>" class="base-btn"><?php echo $jj['button_text'] ?></a>
+   
   </div>
   <div class="to-dos">
   <?php if( !empty( $jj['to_do_heading'] ) ): ?>
@@ -42,5 +44,30 @@ get_header(); the_post(); $jj = get_fields(); ?>
     endif; 
   ?>
   </div>
+   <div class="row">
+    <div class="col-xs-12 gram-top">
+        <h2>#MrJonesAndMe17</h2>
+        <div class="divider"></div>
+        Add the <a href="https://www.instagram.com/explore/tags/mrjonesandme17/" target="blank">#MrJonesAndMe17</a> tag on instagram to get your photo to show up here.
+    </div>
+    <?php 
+      $insta = Instagram::getMediaByHashtag("mrjonesandme17", 8);  
+
+      foreach ($insta as $key => $gram):
+    ?>
+      <div class="col-xs-12 col-sm-6 col-md-3 instagram">
+         <img data-original="<?php echo $gram->thumbnail_src ?>" class="img-responsive lazy" width="500" height="500">
+         <div class="caption"><?php echo $gram->caption ?></div>
+         <div class="username"><a href="https://www.instagram.com/<?php echo $gram->owner->username ?>">@<?php echo $gram->owner->username ?></a></div>
+      </div>
+    <?php
+      jj_break(($key+1),array('xs'=>1,'sm'=>2,'md'=>4,'lg'=>4));
+      endforeach;
+    ?>
+
+  </div>
 </div>
+<script type="text/javascript">
+  jQuery("img.lazy").lazyload();
+</script>
 <?php get_footer(); ?>
