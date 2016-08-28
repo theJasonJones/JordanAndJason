@@ -6,7 +6,12 @@
     <meta charset="<?php bloginfo('charset') ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title><?php wp_title(); ?></title>
-    <!-- Favicons added here -->
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_stylesheet_directory_uri() ?>/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="<?php echo get_stylesheet_directory_uri() ?>/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="<?php echo get_stylesheet_directory_uri() ?>/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="<?php echo get_stylesheet_directory_uri() ?>/favicons/manifest.json">
+    <link rel="mask-icon" href="<?php echo get_stylesheet_directory_uri() ?>/favicons/safari-pinned-tab.svg" color="#ffffff">
+    <meta name="theme-color" content="#c13376">
     <?php 
     //At the end of the head tag, tell plugins to add their stuff and add CSS in functions.php
     wp_head(); 
@@ -15,31 +20,18 @@
 
   <body <?php body_class(); ?> >
   <header>
-    <nav class="navbar navbar-default" role="navigation">
-      <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-
-            <?php
-                wp_nav_menu( array(
-                    'menu'              => 'primary',
-                    'theme_location'    => 'primary',
-                    'depth'             => 2,
-                    'container'         => 'div',
-                    'container_class'   => 'collapse navbar-collapse',
-                    'container_id'      => 'bs-example-navbar-collapse-1',
-                    'menu_class'        => 'nav navbar-nav',
-                    'fallback_cb'       => 'wp_bootstrap_navwalker::fallback',
-                    'walker'            => new wp_bootstrap_navwalker())
-                );
-            ?>
-        </div>
-    </nav>
+         <div class="mobile-button">
+          <a href="javascript:void(0)" class="icon">
+            <div class="hamburger">
+              <div class="menui top-menu"></div>
+              <div class="menui mid-menu"></div>
+              <div class="menui bottom-menu"></div>
+              <div class="menu">MENU</div>
+            </div>
+          </a>
+        </div>  
+       <nav class="mobilenav" id="main-navigation" role="navigation">
+          <?php wp_nav_menu(array('container_class'=>'main-navigation', 'container_id'=>'', 'depth'=>2, 'menu'=>2, 'menu_class'=>'nav sidebar-nav', 'walker'=>new Bootstrap_Dropdown_Walker_Texas_Ranger)); ?>
+         </nav>
+      </div>
   </header>
