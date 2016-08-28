@@ -1,6 +1,9 @@
 <?php 
 require_once('functions/base-functions.php');
 
+//Enable Featured Images
+add_theme_support( 'post-thumbnails' ); 
+
 function jj_excerpt_length( $length ){
   return 16;
 }
@@ -24,6 +27,7 @@ function jj_theme_styles(){
   wp_enqueue_style('normalize_css', 'https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.2/css/normalize.min.css');
  # wp_enqueue_style('bootstrap', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css');
   wp_enqueue_style('googlefont_css', 'http://fonts.googleapis.com/css?family=Asap:400,700,400italic,700italic');
+  wp_enqueue_style('googlefont_css', 'https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,300,700');
   wp_enqueue_style('fontawesome_css', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css');
   wp_enqueue_style('main_css', get_template_directory_uri(). '/style.less');
 }
@@ -36,15 +40,38 @@ function jj_theme_js(){
   #wp_enqueue_script('retina_js', 'https://cdnjs.cloudflare.com/ajax/libs/retina.js/1.3.0/retina.min.js', '','',false);
   wp_enqueue_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js', array('jquery'),'',false);
   wp_enqueue_script('bootstrap_js', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js', array('jquery'),'',true);
+  wp_enqueue_script('mobile_menu', get_stylesheet_directory_uri() . '/js/menu.js', array('jquery'),'',true);
+  wp_enqueue_script('lazyload', get_stylesheet_directory_uri() . '/js/jquery.lazyload.min.js', array('jquery'),'',false);
 }
 add_action('wp_enqueue_scripts','jj_theme_js');
 
-//
+// Image sizes to be resized by Regenerate Thumbnails
+add_image_size('home_image', '1500', '800', true);
+add_image_size('top_header_image', '1700', '550', true);
 add_image_size('logo_resize', '940', '588', true);
+add_image_size('image_row', '640', '480', true);
 add_image_size('logo_resize', '640', '400', true);
+add_image_size('to_dos', '350', '300', true);
 
 //Get Google Fonts
 jj_get_webfont('Suranna', 'normal, bold');
 #jj_get_webfont('Old Standard TT', 'normal, bold');
+
+//add_filter('wp_nav_menu_items','add_custom_in_menu', 10, 2);
+
+// Adds in Logo in the middle of the menu
+// function add_custom_in_menu( $items, $args )
+// {
+//     if( $args->theme_location == 'primary' )
+//     {
+//         $new_item       = array( '<li class="menu-logo"><a href="/"><img src="' . get_stylesheet_directory_uri() . '/images/center-nav-img.png" alt=""></a></li>' );
+//         $items          = preg_replace( '/<\/li>\s<li/', '</li>,<li',  $items );
+
+//         $array_items    = explode( ',', $items );
+//         array_splice( $array_items, 3, 0, $new_item ); // splice in at position 3
+//         $items          = implode( '', $array_items );
+//     }
+//     return $items;
+// }
 
 require_once('wp_bootstrap_navwalker.php');
