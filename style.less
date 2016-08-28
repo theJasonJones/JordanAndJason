@@ -2,28 +2,54 @@
 
 @import "styles/main.less";
 
-// .header{ margin-top: 25px;
-//   nav { .container; padding-left: 0; margin-bottom: 0px;
-//     a { color: #3d6c97; font-size: 18px; line-height:28px; font-weight: bold; }
-//     li{
-//       &:hover > a { background-color: #f1f1f1; }
-//       &.menu-item-has-children { 
-//         & > a:after { font-family: 'FontAwesome'; content:"\f107"; margin-left: 10px; }
-//        }
-//        &.current-menu-item, &.current_page_parent { background-color: #f1f1f1;  
-//         a { color: white; }
-//       }
-//     }
-//   }
-// }
+//Variables
+@pink: #C13376;
+@white: #FFF;
+@black: #353839;
 
 //Helpers
-.txt-center          { text-align: center; }
-.txt-italic          { font-style: italic; }
-.uppercase           { text-transform: uppercase; }
-//.old                 { font-family: 'Old Standard TT', sans-serif; }
+.txt-center        { text-align: center; }
+.txt-italic        { font-style: italic; }
+.uppercase         { text-transform: uppercase; }
+.bold              { font-weight: bold; }
+
+//Fonts
 .suranna             { font-family: 'Suranna', sans-serif; }
+.source              { font-family: 'Source Sans Pro', sans-serif; }
 .fs( @size: 20px )   { font-size: @size; }
+.lh( @height:30px )  { line-height: @height; }
+.dash                { border-bottom: 5px solid @pink; }
+
+//Headings
+h1 { .fs(48px); .lh(60px); 
+    @media( max-width: @screen-xs-max ){ .fs(30px); .lh(40px) }
+}
+h2 { .fs(36px); .lh(45px); 
+    @media( max-width: @screen-xs-max ){ .fs(28px); .lh(35px) }
+}
+h3 { .fs(24px); .lh(36px); }
+h4 { .fs(24px); .lh(36px); }
+h5 { .fs(20px); .lh(30px); }
+
+a { color: @pink; 
+    &:hover, &:active, &:focus { color: darken(@pink, 8%); }
+}
+
+.button-creator(@color) {
+  .button;
+  background: @color;
+  box-shadow: 0px 3px 0px darken(@color, 7%);
+  
+  &:active, &:focus{
+    box-shadow: 0px 1px 0px darken(@color, 7%);
+    position: relative;
+    top: 2px;
+  }
+  &:hover { color: white; background-color: darken(@color, 7% ); }
+}
+
+.button { .btn; .source; .uppercase; font-size: 16px; padding: 10px 3%; border-radius: 5px; border: none; text-align: center; outline: none;  font-weight: bold; cursor: pointer: 0; color: #FFF;
+}
 
 //Full Width Images
 .bg-image            { background-repeat: no-repeat; background-size: cover; background-position: center center; }
@@ -34,20 +60,233 @@
 //Horizontal & Vertical center: (Reminder: Parent element needs to be position: relative; )
 .center-hv          { position: absolute; top: 50%; left: 50%; .translate(-50%; -50%); }
 
-.home {
-  header { height: 50px; position: absolute; z-index: 3; width: 100%;
-    .navbar-default { border-color: transparent; }
-    .navbar { background-color: transparent; border-color: transparent; }
-    .navbar-nav { width: 50%; margin: 0 auto; background-color: transparent;
-      @media( max-width: @screen-xs-max ){ width: 100%; background-color: #312b2b }
-        a { .txt-center; color: white; font-weight: bold; }
+body { .fs(18px); .lh(28px); .source; }
+
+.content { padding-top: 40px; padding-bottom: 40px; }
+
+.pink-btn { .button-creator(@pink);
+    &:after {  font-family: 'FontAwesome'; content:"\f054"; padding-left: 10px; padding-bottom: 10px; .fs(14px); }
+}
+
+@grid-float-breakpoint : 1107px;
+@black : 000;
+@menu-pink :  #ff0078; 
+@dark-red : darken(@menu-pink, 8%); 
+@tan: #FFF;
+
+.fixedPosition{ position: fixed; width: 100%; }
+
+.gridpoint-break { display: none;
+  @media( max-width: @grid-float-breakpoint ){ display: block; position: relative; }
+}
+
+// mobile navigation only
+  .bar {  width: 40px; height: 6px; border-radius: 10px; background-color: @menu-pink; }
+ 
+  .top-animate { background: #FFF !important; top: 13px !important; -webkit-transform: rotate(45deg);
+      /* Chrome, Safari, Opera */
+      transform: rotate(45deg);
+  }
+  .mid-animate { opacity: 0;  }
+  .bottom-animate { background: #FFF !important; top: 13px !important; -webkit-transform: rotate(-225deg);
+      /* Chrome, Safari, Opera */
+      transform: rotate(-225deg);
+  }
+  
+  .mobile-button { position: absolute; right: 35px; top: 0px; z-index: 21; 
+    a { text-decoration: none; 
+          &:hover, &:focus, &:active { text-decoration: none; }
     }
   }
+   .menu {     position: relative; top: 42px; left: -2px;  color: @menu-pink; font-size: 15px; text-decoration: none; border-bottom: none;
+        &.active { color: white; }
+   }
+
+  .top-menu { top: 5px; .bar}
+  .mid-menu { top: 15px; .bar }
+  .bottom-menu { top: 25px; .bar }
+
+  .menui { background: @menu-pink; transition: 0.6s ease; transition-timing-function: cubic-bezier(.75, 0, .29, 1.01); margin-top: 10px; position: absolute;}
+  .icon { z-index: 6; position: relative; display: block; height: 44px; width:44px; margin: 0px; top: 30px; left: 0; }
+
+  .mobilenav { top: 0px !important; font-family: inherit; top: 0; left:0; z-index: 5; display: none; z-index: 20; position: fixed; width: 100%; height: 100%; background: @menu-pink; padding:0; margin:0;  overflow-y: scroll; padding: 0px 10px; 
+
+    //@media( @screen-xs-max ){  height: 590px; max-height: 800px; width: 100%; overflow-y: scroll; -webkit-overflow-scrolling:touch;  }
+    
+     li { list-style-type: none; border-bottom: 1px solid #FFF; 
+      & > a { .fs(20px); .bold; color: #fff; text-decoration: none; width: 100%; 
+        &:hover, &:focus { background-color: @menu-pink; color: white; }
+      }
+
+      .dropdown-menu { border: none; box-shadow: none; border-bottom: 1px solid @menu-pink;
+        li { border-bottom: none; 
+          a{ .fs(18px); .lh(30px); font-weight: normal;
+            &:hover, &:focus { background-color: @menu-pink; color: white; }
+          }
+        }
+      }
+     }
+  }
+
+  .nav {
+    & > li {
+      & > a {  
+        &:hover { background-color: @dark-red; color: #FFF; }
+      }
+    }
+  }
+  #main-navigation { padding-top: 90px; padding-bottom: 90px;
+    .menu-btn{ .txt-center; margin-bottom: 200px;
+      .main-btn { background-color: transparent; border: 1px solid white; margin-top: 50px; margin-bottom: 50px; height: 50px; line-height: 50px; padding-right: 30px; padding-left: 30px; }
+    }
+  }
+
+  #main-navigation ul ul li:hover > a,
+  #main-navigation ul ul li.active > a {
+    backgrond-color: @dark-red;
+    color: #FFF;
+  }
+  #main-navigation ul ul,
+  #main-navigation ul ul ul {
+    position: relative;
+    left: 0;
+    width: 100%;
+    margin: 0;
+    text-align: left
+  }
+  #main-navigation > ul > li.has-sub > a:after,
+  #main-navigation > ul > li.has-sub > a:before,
+  #main-navigation ul ul > li.has-sub > a:after,
+  #main-navigation ul ul > li.has-sub > a:before {
+    display: none
+  }
+  #main-navigation #head-mobile {
+    display: block;
+    padding: 23px;
+    color: #ddd;
+    font-size: 12px;
+    font-weight: 700
+  }
+  
+  #main-navigation .submenu-button {
+    position: absolute;
+    z-index: 99;
+    right: 0;
+    top: 0;
+    display: block;
+    //border-left: 1px solid #fff;
+    height: 46px;
+    width: 46px;
+    cursor: pointer
+  }
+  #main-navigation .dropdown-menu{
+    background-color: @dark-red; 
+    color: white;
+    border-bottom: 1px solid @menu-pink;
+    border-radius: 0px;
+  }
+
+  #main-navigation ul ul .submenu-button {
+    height: 34px;
+    width: 34px
+  }
+  #main-navigation .submenu-button:after {
+    position: absolute;
+    top: 10px;
+    right: 24px;
+    width: 8px;
+    height: 2px;
+    display: block;
+    color: #fff;
+    font-family: 'FontAwesome';
+    content:"\f196";
+  }
+  #main-navigation ul ul .submenu-button:after {
+    top: 15px;
+    right: 13px
+  }
+  #main-navigation .submenu-button.submenu-opened:after {
+    font-family: 'FontAwesome';
+    content:"\f147";
+    color: #fff;
+  }
+  #main-navigation .submenu-button:before {
+    position: absolute;
+    top: 19px;
+    right: 22px;
+    display: block;
+    width: 2px;
+    height: 8px;
+  }
+  #main-navigation ul ul .submenu-button:before {
+    top: 12px;
+    right: 16px
+  }
+  #main-navigation .submenu-button.submenu-opened:before {
+    display: none
+  }
+  #main-navigation ul ul ul li.active a {
+    border-left: none
+  }
+  #main-navigation > ul > li.has-sub > ul > li.active > a,
+  #main-navigation > ul ul > li.has-sub > ul > li.active > a {
+    border-top: none
+  }
+
+.home {
+  .menu-logo { display: none; }
+  .to-do-heading { .txt-center; }
+  .details { .txt-center; }
+  .divider { .dash; width: 50px; margin: 20px auto 40px; }
+  .to-dos{ margin: 40px 0px; .clearfix();
+    .to-do-item { .bg-image; height: 300px; width: 100%; position: relative; max-width: 350px; border-radius: 5px; 
+      @media( max-width: @screen-sm-max ){ margin: 20px auto; }
+
+      h3 { .txt-center; color: @white; .center-hv; top: 45%; z-index: 3; .suranna; .fs(50px); 
+        &:after { font-family: 'FontAwesome'; content:"\f054"; padding-left: 10px; padding-bottom: 10px; position: relative; bottom: 7px; .fs(20px); }
+      }
+      .overlay { .basic-overlay(#000); border-radius: 5px; .transition(all .5s); }
+      &:hover { 
+        .overlay { .opacity(0); }
+      }
+    }
+  }
+  .gram-top { margin-bottom: 40px; .txt-center; }
+  .instagram{ margin-bottom: 40px;
+    .caption, .username { .fs(15px); .lh(18px); }
+    .caption { margin-top: 20px; }
+  }
 }
+
+.page-template-default, .page-template-tpl-fifty, .page-template-tpl-about {
+  .bg-wrapper { height: 400px; 
+    .text { 
+        @media( max-width: @screen-xs-max ){ width: 90%; }
+      }
+  }
+  
+  .divider { .dash; width: 50px; margin: 20px auto; }
+}
+
+.page-template-tpl-about {
+    .center-img { margin: 50px 0px; }
+    .half { .txt-center;  
+       @media( max-width: @screen-xs-max ){ margin-bottom: 50px; }
+    }
+}
+
+.footer { color: @white; background-color: @black; }
+
 .bg-wrapper{ .bg-image; height: 100vh; position: relative;
   .text { .center-hv; z-index: 3; color: #FFF; .suranna; .fs(30px); .txt-center; 
     p { text-shadow: 2px 2px 0 rgba(0,0,0,0.3); }
-    img { display: inline-block; max-height: 100vh; }
+    img { display: inline-block; max-height: 100vh; min-width: 257px; min-height: 163px; }
   }
   .overlay { .basic-overlay(#000); }
+  &:after { font-family: 'FontAwesome'; content:"\f078"; color: white; position: absolute; bottom: 50px; left: 50%; z-index: 3;}
+}
+
+
+.footer { background-color: #666; color: #FFF; text-align: center;
+
 }
