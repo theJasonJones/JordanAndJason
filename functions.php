@@ -57,21 +57,28 @@ add_image_size('to_dos', '350', '300', true);
 jj_get_webfont('Suranna', 'normal, bold');
 #jj_get_webfont('Old Standard TT', 'normal, bold');
 
-//add_filter('wp_nav_menu_items','add_custom_in_menu', 10, 2);
+function disable_wp_emojicons() {
 
-// Adds in Logo in the middle of the menu
-// function add_custom_in_menu( $items, $args )
-// {
-//     if( $args->theme_location == 'primary' )
-//     {
-//         $new_item       = array( '<li class="menu-logo"><a href="/"><img src="' . get_stylesheet_directory_uri() . '/images/center-nav-img.png" alt=""></a></li>' );
-//         $items          = preg_replace( '/<\/li>\s<li/', '</li>,<li',  $items );
+  // all actions related to emojis
+  remove_action( 'admin_print_styles', 'print_emoji_styles' );
+  remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+  remove_action( 'admin_print_scripts', 'print_emoji_detection_script' );
+  remove_action( 'wp_print_styles', 'print_emoji_styles' );
+  remove_filter( 'wp_mail', 'wp_staticize_emoji_for_email' );
+  remove_filter( 'the_content_feed', 'wp_staticize_emoji' );
+  remove_filter( 'comment_text_rss', 'wp_staticize_emoji' );
 
-//         $array_items    = explode( ',', $items );
-//         array_splice( $array_items, 3, 0, $new_item ); // splice in at position 3
-//         $items          = implode( '', $array_items );
-//     }
-//     return $items;
-// }
+  // filter to remove TinyMCE emojis
+  add_filter( 'tiny_mce_plugins', 'disable_emojicons_tinymce' );
+}
+add_action( 'init', 'disable_wp_emojicons' );
+
+function disable_emojicons_tinymce( $plugins ) {
+  if ( is_array( $plugins ) ) {
+    return array_diff( $plugins, array( 'wpemoji' ) );
+  } else {
+    return array();
+  }
+}
 
 require_once('wp_bootstrap_navwalker.php');
