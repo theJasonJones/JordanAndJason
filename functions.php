@@ -55,9 +55,21 @@ add_image_size('to_dos', '350', '300', true);
 
 //Get Google Fonts
 jj_get_webfont('Suranna', 'normal, bold');
-#jj_get_webfont('Old Standard TT', 'normal, bold');
 
-function disable_wp_emojicons() {
+
+function jj_cleanup_wp_head() {
+
+  //Remove unneeded hooks in the head
+  remove_action( 'wp_head', 'wp_generator');
+  remove_action( 'wp_head', 'wp_shortlink_wp_head');
+  remove_action( 'wp_head', 'wp_oembed_add_discovery_links');
+  remove_action( 'wp_head', 'wp_oembed_add_host_js');
+  remove_action( 'wp_head', 'rest_output_link_wp_head');
+  remove_action( 'wp_head', 'rsd_link');
+  remove_action( 'wp_head', 'wlwmanifest_link');
+  remove_action( 'rest_api_init', 'wp_oembed_register_route');
+  remove_filter( 'oembed_dataparse', 'wp_filter_oembed_result', 10);
+  add_filter( 'emoji_svg_url', '__return_false' );
 
   // all actions related to emojis
   remove_action( 'admin_print_styles', 'print_emoji_styles' );
@@ -71,7 +83,7 @@ function disable_wp_emojicons() {
   // filter to remove TinyMCE emojis
   add_filter( 'tiny_mce_plugins', 'disable_emojicons_tinymce' );
 }
-add_action( 'init', 'disable_wp_emojicons' );
+add_action( 'init', 'jj_cleanup_wp_head' );
 
 function disable_emojicons_tinymce( $plugins ) {
   if ( is_array( $plugins ) ) {
