@@ -51,7 +51,7 @@ include('instagram.php');
         Add the <a href="https://www.instagram.com/explore/tags/mrjonesandme17/" target="blank">#MrJonesAndMe17</a> tag on instagram to get your photo to show up here.
     </div>
     <?php 
-      $insta = Instagram::getMediaByHashtag("mrjonesandme17", 8);  
+      $insta = Bolandish\Instagram::getMediaByHashtag("mrjonesandme17", 8);  
 
       foreach ($insta as $key => $gram):
     ?>
