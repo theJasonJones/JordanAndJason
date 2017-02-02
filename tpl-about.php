@@ -25,10 +25,12 @@
        <?php endif; ?>
         <div class="col-xs-12 col-sm-6 half">
           <h2><?php echo $about['first_section_title'] ?></h2>
+          <div class="divider"></div>
           <?php echo $about['first_section_paragraph'] ?>
         </div>
         <div class="col-xs-12 col-sm-6 half">
           <h2><?php echo $about['second_section_title'] ?></h2>
+          <div class="divider"></div>
           <?php echo $about['second_second_paragraph'] ?>
         </div>
       </div>
