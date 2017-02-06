@@ -56,7 +56,9 @@ include('instagram.php');
       foreach ($insta as $key => $gram):
     ?>
       <div class="col-xs-12 col-sm-6 col-md-3 instagram">
-         <img data-original="<?php echo $gram->thumbnail_src ?>" class="img-responsive lazy" width="500" height="500">
+          <a href="https://www.instagram.com/p/<?php echo $gram->code ?>" target="_blank">
+            <img data-original="<?php echo $gram->thumbnail_src ?>" class="img-responsive lazy" width="500" height="500">
+          </a>
          <div class="caption"><?php echo $gram->caption ?></div>
          <div class="username"><a href="https://www.instagram.com/<?php echo $gram->owner->username ?>">@<?php echo $gram->owner->username ?></a></div>
       </div>
