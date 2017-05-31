@@ -3,7 +3,10 @@
     <div class="container text">
       <h1><?php the_title() ?></h1>
       <div class="divider"></div>
-      <div><?php echo $f['quote'] ?><em><?php echo $f['source'] ?></em></div>
+      <div class="quote">
+        <?php echo $f['quote'] ?>
+        <em><?php echo $f['source'] ?></em>
+      </div>
     </div>
   <div class="overlay"></div>
 </div>

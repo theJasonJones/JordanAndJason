@@ -48,7 +48,7 @@ a { color: @pink;
   &:hover { color: white; background-color: darken(@color, 7% ); }
 }
 
-.button { .btn; .source; .uppercase; font-size: 16px; padding: 10px 3%; border-radius: 5px; border: none; text-align: center; outline: none;  font-weight: bold; cursor: pointer: 0; color: #FFF;
+.button { .btn; .source; .uppercase; font-size: 16px; padding: 10px 3%; border-radius: 5px; border: none; text-align: center; outline: none;  font-weight: bold; cursor: pointer: 0; color: #FFF; .button-creator(@pink);
 }
 
 //Full Width Images
@@ -258,7 +258,7 @@ body { .fs(18px); .lh(28px); .source; }
   }
 }
 
-.page-template-default, .page-template-tpl-fifty, .page-template-tpl-about {
+.page-template-default, .page-template-tpl-fifty, .page-template-tpl-about, .page-template-tpl-register {
   .bg-wrapper { height: 400px; 
     .text { 
         @media( max-width: @screen-xs-max ){ width: 90%; }
@@ -266,6 +266,10 @@ body { .fs(18px); .lh(28px); .source; }
   }
   
   .divider { .dash; width: 50px; margin: 20px auto; }
+}
+
+.page-template-tpl-register { .txt-center;
+    img { margin: auto; }
 }
 
 .page-template-tpl-about {
@@ -278,7 +282,8 @@ body { .fs(18px); .lh(28px); .source; }
 .footer { color: @white; background-color: @black; }
 
 .bg-wrapper{ .bg-image; height: 100vh; position: relative;
-  .text { .center-hv; z-index: 3; color: #FFF; .suranna; .fs(30px); .txt-center; 
+  .text { .center-hv; z-index: 3; color: #FFF; .suranna; .fs(30px); .txt-center;
+    @media( max-width: @screen-xs-max ){ width: 90%; } 
     p { text-shadow: 2px 2px 0 rgba(0,0,0,0.3); }
     img { display: inline-block; max-height: 100vh; min-width: 257px; min-height: 163px; }
   }
